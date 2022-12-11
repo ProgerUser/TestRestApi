@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -22,10 +23,11 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    String myUrl = "http://10.0.2.2:8080/api/single_read.php/?id=угол";
+    String myUrl = "http://10.0.2.2:8089/api/single_read.php/?id=";
     TextView resultsTextView;
     ProgressDialog progressDialog;
     Button displayData;
+    EditText search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +36,18 @@ public class MainActivity extends AppCompatActivity {
 
         resultsTextView = (TextView) findViewById(R.id.results);
         displayData = (Button) findViewById(R.id.displayData);
+        search = (EditText) findViewById(R.id.SearchTxt);
 
         // implement setOnClickListener event on displayData button
         displayData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // create object of MyAsyncTasks class and execute it
-                MyAsyncTasks myAsyncTasks = new MyAsyncTasks();
-                myAsyncTasks.execute();
+                if (search.getText() != null && !search.getText().equals("")) {
+                    myUrl = myUrl + search.getText();
+                    // create object of MyAsyncTasks class and execute it
+                    MyAsyncTasks myAsyncTasks = new MyAsyncTasks();
+                    myAsyncTasks.execute();
+                }
             }
         });
     }
@@ -136,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPreExecute();
             // display a progress dialog for good user experiance
             progressDialog = new ProgressDialog(MainActivity.this);
-            progressDialog.setMessage("processing results");
+            progressDialog.setMessage("Поиск");
             progressDialog.setCancelable(false);
             progressDialog.show();
         }
