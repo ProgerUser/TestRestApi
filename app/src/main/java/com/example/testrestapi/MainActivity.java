@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,7 +22,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    String myUrl = "http://10.0.2.2:8080/api/single_read.php/?id=%D1%83%D0%B3%D0%BE%D0%BB";
+    String myUrl = "http://10.0.2.2:8080/api/single_read.php/?id=угол";
     TextView resultsTextView;
     ProgressDialog progressDialog;
     Button displayData;
@@ -72,7 +74,12 @@ public class MainActivity extends AppCompatActivity {
                 resultsTextView.setVisibility(View.VISIBLE);
 
                 //Display data with the Textview
-                resultsTextView.setText(my_users);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    resultsTextView.setText(Html.fromHtml(my_users, Html.FROM_HTML_MODE_COMPACT));
+                } else {
+                    resultsTextView.setText(Html.fromHtml(my_users));
+                }
+                //resultsTextView.setText(my_users);
 
             } catch (JSONException e) {
                 e.printStackTrace();
