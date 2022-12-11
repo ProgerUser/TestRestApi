@@ -1,59 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_layout"
+    <LinearLayout
+        android:id="@+id/linear_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/layout_margin"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linear_layout"
+        <EditText
+            android:id="@+id/SearchTxt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/word"
+            android:inputType="text"
+            android:maxLines="1"
+            android:minHeight="@dimen/min_height"
+            tools:ignore="Autofill">
+
+        </EditText>
+
+        <Button
+            android:id="@+id/displayData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_margin="@dimen/layout_margin"
-            android:orientation="vertical">
+            android:text="@string/word_definitions" />
 
-            <EditText
-                android:id="@+id/SearchTxt"
+        <ScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/results"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/word"
-                android:inputType="text"
-                android:maxLines="1"
-                android:minHeight="@dimen/min_height"
-                tools:ignore="Autofill">
+                android:textSize="18sp">
 
-            </EditText>
+            </TextView>
 
-            <Button
-                android:id="@+id/displayData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/layout_margin"
-                android:text="@string/word_definitions" />
+        </ScrollView>
 
-            <ScrollView
-                android:id="@+id/scroll_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/results"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp">
-
-                </TextView>
-
-            </ScrollView>
-
-        </LinearLayout>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
