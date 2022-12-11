@@ -20,7 +20,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    String myUrl = "http://192.168.2.90:8080/api/single_read.php/?id=2";
+    String myUrl = "http://10.0.2.2:8080/api/read.php";
     TextView resultsTextView;
     ProgressDialog progressDialog;
     Button displayData;
@@ -55,15 +55,15 @@ public class MainActivity extends AppCompatActivity {
 
                 JSONObject jsonObject = new JSONObject(s);
 
-                JSONArray jsonArray1 = jsonObject.getJSONArray("users");
+                JSONArray jsonArray = new JSONArray();
+                jsonArray.put(jsonObject);
 
-                int index_no = 1;
-                JSONObject jsonObject1 = jsonArray1.getJSONObject(index_no);
-                String id = jsonObject1.getString("id");
-                String name = jsonObject1.getString("name");
-                String my_users = "User ID: " + id + "\n" + "Name: " + name;
+                JSONObject jsonObject1 = jsonArray.getJSONObject(0);
+                String id = jsonObject1.getString("time");
+                String name = jsonObject1.getString("time");
+                String my_users = "updated: " + id + "\n" + "Bitcoin: " + name;
 
-                System.out.println("==============="+id);
+                System.out.println("===============" + id);
 
                 //Show the Textview after fetching data
                 resultsTextView.setVisibility(View.VISIBLE);
