@@ -23,7 +23,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    String myUrl = "";
+    String myUrl = "http://10.0.2.2:8089/api/single_read.php/?id=";
     TextView resultsTextView;
     ProgressDialog progressDialog;
     Button displayData;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (search.getText() != null && !search.getText().equals("")) {
-                    myUrl = "http://10.0.2.2:8089/api/single_read.php/?id=" + search.getText();
+                    myUrl = myUrl + search.getText();
                     // create object of MyAsyncTasks class and execute it
                     MyAsyncTasks myAsyncTasks = new MyAsyncTasks();
                     myAsyncTasks.execute();
