@@ -22,13 +22,32 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-
-    String myUrl = "http://10.0.2.2:8089/api/single_read.php/?id=";
+    /**
+     * Ссылка на ресурс
+     */
+    String myUrl = "";
+    /**
+     * Просмотр
+     */
     TextView resultsTextView;
+    /**
+     * Прогресс бар
+     */
     ProgressDialog progressDialog;
+    /**
+     * Кнопка поиска
+     */
     Button displayData;
+    /**
+     * Текстовое поле
+     */
     EditText search;
 
+    /**
+     * При создании
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (search.getText() != null && !search.getText().equals("")) {
-                    myUrl = myUrl + search.getText();
+                    myUrl = "http://10.0.2.2:8080/api/single_read.php/?id=" + search.getText();
                     // create object of MyAsyncTasks class and execute it
                     MyAsyncTasks myAsyncTasks = new MyAsyncTasks();
                     myAsyncTasks.execute();
@@ -52,22 +71,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Асинхронная задача
+     * ...
+     */
     public class MyAsyncTasks extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPostExecute(String s) {
-
             // dismiss the progress dialog after receiving data from API
             progressDialog.dismiss();
             try {
-
                 JSONObject jsonObject = new JSONObject(s);
-
-
                 JSONArray jsonArray = new JSONArray();
-
                 jsonArray.put(jsonObject);
-
                 //JSONArray jsonArray1 = jsonObject.getJSONArray("id");
 
                 int index_no = 0;
@@ -106,19 +123,14 @@ public class MainActivity extends AppCompatActivity {
                     //open a URL coonnection
 
                     urlConnection = (HttpURLConnection) url.openConnection();
-
                     InputStream in = urlConnection.getInputStream();
-
                     InputStreamReader isw = new InputStreamReader(in);
-
                     int data = isw.read();
-
                     while (data != -1) {
                         result += (char) data;
                         data = isw.read();
 
                     }
-
                     // return the data to onPostExecute method
                     return result;
 
@@ -129,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                         urlConnection.disconnect();
                     }
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
                 return "Exception: " + e.getMessage();
